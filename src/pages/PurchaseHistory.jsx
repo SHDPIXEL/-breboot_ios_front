@@ -13,8 +13,25 @@ const PurchaseCard = ({ purchase }) => {
   const imageUrl = purchase.image.startsWith("http") ? purchase.image : `${API_BASE_URL}${purchase.image}`;
   const invoiceUrl = purchase.invoiceUrl ? `${API_BASE_URL}${purchase.invoiceUrl}` : null;
 
-  // Format the address to replace \r\n with spaces
-  const formattedAddress = purchase.address?.replace(/\r\n/g, " ") || "";
+  let addressObject = purchase.address;
+  try {
+    if (typeof purchase.address === "string") {
+      addressObject = JSON.parse(purchase.address);
+
+      // Check if it's still a string (meaning it was double-encoded)
+      if (typeof addressObject === "string") {
+        addressObject = JSON.parse(addressObject);
+      }
+    }
+  } catch (error) {
+    console.error("Error parsing address:", error);
+    addressObject = null; // Fallback in case of error
+  }
+
+  const formattedAddress = addressObject
+    ? `${addressObject.address}, ${addressObject.landMark}, ${addressObject.city}, ${addressObject.state} - ${addressObject.pincode}`
+    : "Address not available";
+
 
   // Function to handle invoice download
   const downloadInvoice = () => {
@@ -62,8 +79,8 @@ const PurchaseCard = ({ purchase }) => {
               {purchase.paymentStatus === "Verified"
                 ? "Payment Verified"
                 : purchase.paymentStatus === "Verifying"
-                ? "Verification Pending"
-                : "Payment Failed"}
+                  ? "Verification Pending"
+                  : "Payment Failed"}
             </span>
           </div>
 
@@ -99,7 +116,8 @@ const PurchaseHistory = () => {
         const response = await api.get(`/user/payments`);
 
         const purchaseDetails = response.data?.payments || [];
-        setPurchases(purchaseDetails);
+        setPurchases(purchaseDetails.reverse());
+        console.log(response.data)
       } catch (error) {
         console.error("Error fetching purchase history:", error);
         toast.error("Error fetching purchase history");
