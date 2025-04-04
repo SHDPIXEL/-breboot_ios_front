@@ -34,11 +34,11 @@ const ContactModal = ({ onClose }) => {
         <div className="space-y-4">
           <div className="text-sm text-gray-600">
             <p className="font-medium mb-1">Company:</p>
-            <p>Celagenex Research (india) Pvt Ltd</p>
+            <p>Celagenex Research (India) Pvt. Ltd.</p>
           </div>
           <div className="text-sm text-gray-600">
             <p className="font-medium mb-1">Floor:</p>
-            <p>6th floor, bellona building , hiranandani estate , thane , mumbai - 400607</p>
+            <p>6th Floor, Bellona Building, Hiranandani Estate, Thane, Mumbai - 400607</p>
           </div>
           <div className="text-sm text-gray-600">
             <p className="font-medium mb-1">Email:</p>
