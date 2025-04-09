@@ -4,6 +4,7 @@ import { X } from "lucide-react";
 const ConfirmModal = ({
   title = "Are you sure?",
   message = "Do you really want to proceed?",
+  sub="",
   onClose,
   onConfirm,
   confirmText = "Confirm",
@@ -40,6 +41,7 @@ const ConfirmModal = ({
         </div>
 
         <p className="text-sm text-gray-600 mb-6">{message}</p>
+        <p className="text-sm text-gray-600 mb-6">{sub}</p>
 
         <div className="flex justify-end gap-2">
           <button
