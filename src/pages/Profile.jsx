@@ -1,6 +1,18 @@
 import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
-import { UserPen, Copy, Check, Mail, Phone, User, LogOut, Key, Dot, MapPin, Edit2 } from "lucide-react";
+import {
+  UserPen,
+  Copy,
+  Check,
+  Mail,
+  Phone,
+  User,
+  LogOut,
+  Key,
+  Dot,
+  MapPin,
+  Edit2,
+} from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { ConsentModal } from "../components/Modal";
 import { useUser } from "../context/userContext";
@@ -128,7 +140,9 @@ const Profile = () => {
       }
     } catch (error) {
       console.error("Update profile error:", error);
-      toast.error(error.response?.data?.message || "Failed to update profile. Try again.");
+      toast.error(
+        error.response?.data?.message || "Failed to update profile. Try again."
+      );
     } finally {
       setIsUpdating(false);
     }
@@ -187,9 +201,13 @@ const Profile = () => {
     return (
       <div className="text-center py-10">
         No user data available. Please{" "}
-        <button onClick={() => navigate("/login")} className="text-[#F7941C] underline">
+        <button
+          onClick={() => navigate("/login")}
+          className="text-[#F7941C] underline"
+        >
           log in
-        </button>.
+        </button>
+        .
       </div>
     );
   }
@@ -197,7 +215,7 @@ const Profile = () => {
   return (
     <div className="min-h-[100dvh] flex flex-col bg-gray-50">
       <Header
-        title={isEditing ? "Update Profile" : "Profile" }
+        title={isEditing ? "Update Profile" : "Profile"}
         icon={<UserPen className="w-6 h-6" />}
         onAction={() => setIsEditing(!isEditing)}
         extraContent={
@@ -213,11 +231,30 @@ const Profile = () => {
         <div className="pb-10">
           <div className="h-32 bg-[#F7941C]" />
           <div className="px-4 -mt-16">
-            <div className="relative inline-block">
+            <div className="relative">
+              {/* Delete Button - Top Right */}
+              <button
+                onClick={() => {
+                  if (
+                    window.confirm(
+                      "Are you sure you want to delete your account?"
+                    )
+                  ) {
+                    // Delete logic here
+                  }
+                }}
+                className="absolute right-0 top-19 text-sm text-red-600 bg-white border border-red-300 rounded-lg px-4 py-2 hover:bg-red-50 transition"
+              >
+                Delete Account
+              </button>
+
+              {/* Profile Image */}
               <div className="w-32 h-32 bg-white rounded-full p-1">
                 <div className="w-full h-full bg-gray-100 rounded-full flex items-center justify-center relative overflow-hidden">
                   <img
-                    src={userData?.gender === "male" ? menProfile : womanProfile}
+                    src={
+                      userData?.gender === "male" ? menProfile : womanProfile
+                    }
                     alt={`${userData.name}'s profile`}
                     className="w-full h-full object-cover"
                   />
@@ -233,7 +270,9 @@ const Profile = () => {
               <p className="text-sm text-gray-500 mb-1">Available Points</p>
               <div className="flex items-center justify-center gap-2">
                 <img src={coin} alt="Points coin" className="w-5 h-auto" />
-                <p className="text-xl font-bold text-[#F7941C]">{userData.points || 0}</p>
+                <p className="text-xl font-bold text-[#F7941C]">
+                  {userData.points || 0}
+                </p>
               </div>
             </div>
           </div>
@@ -241,7 +280,10 @@ const Profile = () => {
           <div className="bg-white rounded-2xl border border-gray-100 p-6">
             <div className="space-y-6">
               <div>
-                <label className="text-sm text-gray-500 mb-1 block" htmlFor="name">
+                <label
+                  className="text-sm text-gray-500 mb-1 block"
+                  htmlFor="name"
+                >
                   Name
                 </label>
                 <input
@@ -249,7 +291,9 @@ const Profile = () => {
                   id="name"
                   name="name"
                   className={`w-full px-3 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#F7941C]/20 ${
-                    isEditing ? "bg-white border border-[#F7941C]/50 text-black" : "bg-gray-50 text-gray-500"
+                    isEditing
+                      ? "bg-white border border-[#F7941C]/50 text-black"
+                      : "bg-gray-50 text-gray-500"
                   }`}
                   value={formData.name}
                   onChange={handleInputChange}
@@ -299,12 +343,14 @@ const Profile = () => {
                     name="phone"
                     maxLength={10}
                     className={`w-full px-3 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#F7941C]/20 ${
-                      isEditing ? "bg-white border border-[#F7941C]/50 text-black" : "bg-gray-50 text-gray-500"
+                      isEditing
+                        ? "bg-white border border-[#F7941C]/50 text-black"
+                        : "bg-gray-50 text-gray-500"
                     }`}
                     value={formData.phone}
                     onChange={handleInputChange}
                     // disabled={!isEditing}
-                    disabled = {userData.phone ? true : !isEditing}
+                    disabled={userData.phone ? true : !isEditing}
                     aria-label="Phone number"
                   />
                 </div>
@@ -318,12 +364,14 @@ const Profile = () => {
                     type="email"
                     name="email"
                     className={`w-full px-3 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#F7941C]/20 ${
-                      isEditing ? "bg-white border border-[#F7941C]/50 text-black" : "bg-gray-50 text-gray-500"
+                      isEditing
+                        ? "bg-white border border-[#F7941C]/50 text-black"
+                        : "bg-gray-50 text-gray-500"
                     }`}
                     value={formData.email}
                     onChange={handleInputChange}
                     // disabled={!isEditing}
-                    disabled = {userData.email ? true : !isEditing}
+                    disabled={userData.email ? true : !isEditing}
                     aria-label="Email"
                   />
                 </div>
@@ -337,7 +385,9 @@ const Profile = () => {
                     <select
                       name="state"
                       className={`w-full px-3 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#F7941C]/20 ${
-                        isEditing ? "bg-white border border-[#F7941C]/50 text-black" : "bg-gray-50 text-gray-500"
+                        isEditing
+                          ? "bg-white border border-[#F7941C]/50 text-black"
+                          : "bg-gray-50 text-gray-500"
                       }`}
                       value={formData.state}
                       onChange={handleInputChange}
@@ -385,7 +435,9 @@ const Profile = () => {
                   onClick={handleUpdate}
                   disabled={isUpdating}
                   className={`w-full bg-[#F7941C] text-white py-2 px-4 rounded-xl font-medium transition-colors ${
-                    isUpdating ? "opacity-50 cursor-not-allowed" : "active:bg-amber-600"
+                    isUpdating
+                      ? "opacity-50 cursor-not-allowed"
+                      : "active:bg-amber-600"
                   }`}
                   aria-label="Update profile"
                 >

@@ -1,8 +1,8 @@
 // api.js
 import axios from "axios";
 
-export const API_BASE_URL = "https://api.breboot.celagenex.com/";
-// export const API_BASE_URL = "http://192.168.105.244:4040"; // Replace with your server's base URL
+// export const API_BASE_URL = "https://api.breboot.celagenex.com/";
+export const API_BASE_URL = "http://192.168.1.11:4040"; // Replace with your server's base URL
 export const BASE_IMAGE_URL = "https://api.breboot.celagenex.com"
 
 const api = axios.create({
