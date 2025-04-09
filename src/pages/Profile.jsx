@@ -220,8 +220,8 @@ const Profile = () => {
       {showConfirmModal && (
         <ConfirmModal
           title="Delete Account"
-          message="Once you confirm, your account and all associated data will be scheduled for deletion within 7 days.
-If you change your mind during this period and wish to reactivate your account, please contact us at cheerfol2@gmail.com"
+          message="Once you confirm, your account and all associated data will be scheduled for deletion within 7 days."
+          sub="If you change your mind during this period and wish to reactivate your account, please contact us at cheerfol2@gmail.com"
           onClose={() => setShowConfirmModal(false)}
           onConfirm={() => {
             async function setup(){
