@@ -186,7 +186,7 @@ const useAuth = (fetchUserDetails, navigate) => {
 
       const response = await api.post("/auth/user/login", payload);
 
-      if (response.status === 200) {
+      if (response.data.status === "success") {
         if (loginWithPhone) {
           toast.success("OTP sent successfully!");
           setShowOtpInput(true);
