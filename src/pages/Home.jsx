@@ -12,16 +12,16 @@ const Home = () => {
   const [isSplashVisible, setIsSplashVisible] = useState(true);
   const [checked, setChecked] = useState(true);
   const [activeTab, setActiveTab] = useState("Dr");
-  const [gender, setGender] = useState("female");
-  const [selectedState, setSelectedState] = useState("");
+  // const [gender, setGender] = useState("female");
+  // const [selectedState, setSelectedState] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
     email: "",
     referralCode: "",
     otp: "",
-    gender: "female",
-    state: "",
+    // gender: "female",
+    // state: "",
   });
   const [resendTimer, setResendTimer] = useState(60);
   const [canResend, setCanResend] = useState(false);
@@ -69,61 +69,61 @@ const Home = () => {
     }
   };
 
-  const states = [
-    "Andhra Pradesh",
-    "Arunachal Pradesh",
-    "Assam",
-    "Bihar",
-    "Chhattisgarh",
-    "Goa",
-    "Gujarat",
-    "Haryana",
-    "Himachal Pradesh",
-    "Jharkhand",
-    "Karnataka",
-    "Kerala",
-    "Madhya Pradesh",
-    "Maharashtra",
-    "Manipur",
-    "Meghalaya",
-    "Mizoram",
-    "Nagaland",
-    "Odisha",
-    "Punjab",
-    "Rajasthan",
-    "Sikkim",
-    "Tamil Nadu",
-    "Telangana",
-    "Tripura",
-    "Uttar Pradesh",
-    "Uttarakhand",
-    "West Bengal",
-    "Andaman and Nicobar Islands",
-    "Chandigarh",
-    "Dadra and Nagar Haveli and Daman and Diu",
-    "Lakshadweep",
-    "Delhi",
-    "Puducherry",
-    "Jammu and Kashmir",
-    "Ladakh",
-  ];
+  // const states = [
+  //   "Andhra Pradesh",
+  //   "Arunachal Pradesh",
+  //   "Assam",
+  //   "Bihar",
+  //   "Chhattisgarh",
+  //   "Goa",
+  //   "Gujarat",
+  //   "Haryana",
+  //   "Himachal Pradesh",
+  //   "Jharkhand",
+  //   "Karnataka",
+  //   "Kerala",
+  //   "Madhya Pradesh",
+  //   "Maharashtra",
+  //   "Manipur",
+  //   "Meghalaya",
+  //   "Mizoram",
+  //   "Nagaland",
+  //   "Odisha",
+  //   "Punjab",
+  //   "Rajasthan",
+  //   "Sikkim",
+  //   "Tamil Nadu",
+  //   "Telangana",
+  //   "Tripura",
+  //   "Uttar Pradesh",
+  //   "Uttarakhand",
+  //   "West Bengal",
+  //   "Andaman and Nicobar Islands",
+  //   "Chandigarh",
+  //   "Dadra and Nagar Haveli and Daman and Diu",
+  //   "Lakshadweep",
+  //   "Delhi",
+  //   "Puducherry",
+  //   "Jammu and Kashmir",
+  //   "Ladakh",
+  // ];
 
-  const handleStateChange = (e) => {
-    const value = e.target.value.trim();
-    setSelectedState(value);
-    setFormData((prev) => ({ ...prev, state: value }));
-  };
+  // const handleStateChange = (e) => {
+  //   const value = e.target.value.trim();
+  //   setSelectedState(value);
+  //   setFormData((prev) => ({ ...prev, state: value }));
+  // };
 
   const handleFormChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value.trim() }));
   };
 
-  const handleGenderChange = (newGender) => {
-    setGender(newGender);
-    setFormData((prev) => ({ ...prev, gender: newGender }));
-    localStorage.setItem("GenderType", newGender);
-  };
+  // const handleGenderChange = (newGender) => {
+  //   setGender(newGender);
+  //   setFormData((prev) => ({ ...prev, gender: newGender }));
+  //   localStorage.setItem("GenderType", newGender);
+  // };
 
   return (
     <>
@@ -213,7 +213,7 @@ const Home = () => {
                     aria-label="Email address"
                   />
                 </div>
-                {activeTab === "Dr" && (
+                {/* {activeTab === "Dr" && (
                   <div className="w-full flex items-center bg-gray-50 border border-gray-200 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-[#F7941C]/20 focus-within:border-[#F7941C]">
                     <div className="flex items-center justify-center gap-2 px-4 py-3 border-r border-gray-200 w-20 shrink-0">
                       <span className="text-gray-700 font-semibold">State</span>
@@ -234,7 +234,7 @@ const Home = () => {
                       ))}
                     </select>
                   </div>
-                )}
+                )} */}
                 {activeTab === "Patient" && (
                   <div className="w-full flex items-center bg-gray-50 border border-gray-200 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-[#F7941C]/20 focus-within:border-[#F7941C]">
                     <div className="flex items-center justify-center gap-2 px-4 py-3 border-r border-gray-200 w-20 shrink-0">
@@ -251,7 +251,7 @@ const Home = () => {
                     />
                   </div>
                 )}
-                <div className="flex flex-col items-center w-full">
+                {/* <div className="flex flex-col items-center w-full">
                   <div className="flex gap-4">
                     <label className="flex items-center gap-2 cursor-pointer">
                       <input
@@ -296,7 +296,7 @@ const Home = () => {
                       <span className="text-gray-600">Female</span>
                     </label>
                   </div>
-                </div>
+                </div> */}
                 <label className="flex items-center gap-3 mb-8 cursor-pointer">
                   <input
                     type="checkbox"
@@ -317,7 +317,7 @@ const Home = () => {
               </div>
               <button
                 disabled={isLoading}
-                onClick={() => handleRegister(formData, activeTab, true, selectedState)}
+                onClick={() => handleRegister(formData, activeTab, true)}//selectedState
                 className={`w-full max-w-80 text-white py-3 rounded-xl mb-4 active:bg-gray-900 transition-opacity ${
                   isLoading ? "bg-gray-700" : "bg-black"
                 }`}
@@ -338,7 +338,7 @@ const Home = () => {
                   />
                   <button
                     onClick={() =>
-                      handleOtpVerify(formData, activeTab, true, selectedState)
+                      handleOtpVerify(formData, activeTab, true)//selectedState
                     }
                     className="w-full bg-orange-500 text-white py-3 rounded-xl mb-2"
                     disabled={isLoading}

@@ -39,47 +39,47 @@ const Profile = () => {
     phone: "",
     email: "",
     doctorCode: "",
-    state: "",
+    // state: "",
   });
 
-  const states = [
-    "Andhra Pradesh",
-    "Arunachal Pradesh",
-    "Assam",
-    "Bihar",
-    "Chhattisgarh",
-    "Goa",
-    "Gujarat",
-    "Haryana",
-    "Himachal Pradesh",
-    "Jharkhand",
-    "Karnataka",
-    "Kerala",
-    "Madhya Pradesh",
-    "Maharashtra",
-    "Manipur",
-    "Meghalaya",
-    "Mizoram",
-    "Nagaland",
-    "Odisha",
-    "Punjab",
-    "Rajasthan",
-    "Sikkim",
-    "Tamil Nadu",
-    "Telangana",
-    "Tripura",
-    "Uttar Pradesh",
-    "Uttarakhand",
-    "West Bengal",
-    "Andaman and Nicobar Islands",
-    "Chandigarh",
-    "Dadra and Nagar Haveli and Daman and Diu",
-    "Lakshadweep",
-    "Delhi",
-    "Puducherry",
-    "Jammu and Kashmir",
-    "Ladakh",
-  ];
+  // const states = [
+  //   "Andhra Pradesh",
+  //   "Arunachal Pradesh",
+  //   "Assam",
+  //   "Bihar",
+  //   "Chhattisgarh",
+  //   "Goa",
+  //   "Gujarat",
+  //   "Haryana",
+  //   "Himachal Pradesh",
+  //   "Jharkhand",
+  //   "Karnataka",
+  //   "Kerala",
+  //   "Madhya Pradesh",
+  //   "Maharashtra",
+  //   "Manipur",
+  //   "Meghalaya",
+  //   "Mizoram",
+  //   "Nagaland",
+  //   "Odisha",
+  //   "Punjab",
+  //   "Rajasthan",
+  //   "Sikkim",
+  //   "Tamil Nadu",
+  //   "Telangana",
+  //   "Tripura",
+  //   "Uttar Pradesh",
+  //   "Uttarakhand",
+  //   "West Bengal",
+  //   "Andaman and Nicobar Islands",
+  //   "Chandigarh",
+  //   "Dadra and Nagar Haveli and Daman and Diu",
+  //   "Lakshadweep",
+  //   "Delhi",
+  //   "Puducherry",
+  //   "Jammu and Kashmir",
+  //   "Ladakh",
+  // ];
 
   useEffect(() => {
     if (userData) {
@@ -88,7 +88,7 @@ const Profile = () => {
         phone: userData.phone || "",
         email: userData.email || "",
         doctorCode: userData.code || "",
-        state: userData.state || "",
+        // state: userData.state || "",
       });
     }
   }, [userData]);
@@ -122,7 +122,7 @@ const Profile = () => {
         name: formData.name,
         phone: formData.phone,
         email: formData.email,
-        state: formData.state,
+        // state: formData.state,
       });
 
       if (response.status === 200) {
@@ -131,7 +131,7 @@ const Profile = () => {
           name: formData.name,
           phone: formData.phone,
           email: formData.email,
-          state: formData.state,
+          // state: formData.state,
         }));
         toast.success("Profile updated successfully!");
         setIsEditing(false);
@@ -376,7 +376,7 @@ const Profile = () => {
                   />
                 </div>
 
-                {user === "Dr" && (
+                {/* {user === "Dr" && (
                   <div>
                     <div className="flex items-center gap-2 text-gray-500 mb-1">
                       <MapPin className="w-4 h-4" />
@@ -402,7 +402,7 @@ const Profile = () => {
                       ))}
                     </select>
                   </div>
-                )}
+                )} */}
               </div>
             </div>
 
