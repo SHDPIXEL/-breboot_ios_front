@@ -3,23 +3,27 @@ import toast from "react-hot-toast";
 import api from "../utils/Api";
 
 const useAuth = (fetchUserDetails, navigate) => {
-  const [isLoading, setIsLoading] = useState(false); 
+  const [isLoading, setIsLoading] = useState(false);
   const [showOtpModal, setShowOtpModal] = useState(false);
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [otpResendCount, setOtpResendCount] = useState(0); // Track OTP resends
   const MAX_OTP_RESENDS = 3; // Frontend limit for resends
 
   // Registration Functions
-  const handleRegister = async (formData, activeTab, registerWithPhone) => {//selectedState
+  const handleRegister = async (formData, activeTab, registerWithPhone) => {
+    //selectedState
     if (!formData.name || formData.name.trim() === "") {
       toast.error("Please enter a valid name");
       return;
     }
 
-    // if (activeTab === "Dr" && (!selectedState || selectedState.trim() === "")) {
-    //   toast.error("Please select a valid state");
-    //   return;
-    // }
+    if (
+      activeTab === "Dr" &&
+      (!formData.state || formData.state.trim() === "")
+    ) {
+      toast.error("Please select a valid state");
+      return;
+    }
 
     if (registerWithPhone) {
       if (!formData.phone || !/^\d{10}$/.test(formData.phone)) {
@@ -27,7 +31,10 @@ const useAuth = (fetchUserDetails, navigate) => {
         return;
       }
     } else {
-      if (!formData.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      if (
+        !formData.email ||
+        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)
+      ) {
         toast.error("Please enter a valid email address");
         return;
       }
@@ -40,9 +47,9 @@ const useAuth = (fetchUserDetails, navigate) => {
         phone: registerWithPhone ? formData.phone : null,
         email: formData.email.trim(),
         code: activeTab !== "Dr" ? formData.referralCode?.toUpperCase() : null,
-        // gender: formData.gender || null, // Default to null if empty
+        gender: "ios",
         userType: activeTab === "Dr" ? "Doctor" : "OtherUser",
-        // state: activeTab === "Dr" ? selectedState : null,
+        state: "ios", // ✅ Use formData.state
       };
 
       const response = await api.post("/auth/user/register", payload);
@@ -54,19 +61,23 @@ const useAuth = (fetchUserDetails, navigate) => {
           setShowPasswordModal(true);
         }
       } else {
-        toast.error(response.data.message || "Registration failed. Please try again.");
+        toast.error(
+          response.data.message || "Registration failed. Please try again."
+        );
       }
     } catch (error) {
       console.error("Registration error:", error);
       toast.error(
-        error.response?.data?.message || "Registration failed. Check your connection and try again."
+        error.response?.data?.message ||
+          "Registration failed. Check your connection and try again."
       );
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handlePasswordSubmit = async (formData, activeTab) => {//selectedState
+  const handlePasswordSubmit = async (formData, activeTab, selectedState) => {
+    //selectedState
     if (!formData.password || formData.password.length < 6) {
       toast.error("Please enter a password (minimum 6 characters)");
       return;
@@ -78,10 +89,10 @@ const useAuth = (fetchUserDetails, navigate) => {
         name: formData.name.trim(),
         email: formData.email.trim(),
         password: formData.password,
-        // gender: formData.gender || null,
+        gender: "ios",
         userType: activeTab === "Dr" ? "Doctor" : "OtherUser",
         code: activeTab !== "Dr" ? formData.referralCode?.toUpperCase() : null,
-        // state: activeTab === "Dr" ? selectedState : null,
+        state: "ios",
       };
 
       const response = await api.post("/auth/user/register", payload);
@@ -90,19 +101,29 @@ const useAuth = (fetchUserDetails, navigate) => {
         setShowPasswordModal(false);
         setShowOtpModal(true);
       } else {
-        toast.error(response.data.message || "Password submission failed. Please try again.");
+        toast.error(
+          response.data.message ||
+            "Password submission failed. Please try again."
+        );
       }
     } catch (error) {
       console.error("Password submission error:", error);
       toast.error(
-        error.response?.data?.message || "Failed to set password. Please try again."
+        error.response?.data?.message ||
+          "Failed to set password. Please try again."
       );
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleOtpVerify = async (formData, activeTab, registerWithPhone) => {//selectedState
+  const handleOtpVerify = async (
+    formData,
+    activeTab,
+    registerWithPhone,
+    selectedState
+  ) => {
+    //selectedState
     if (!formData.otp || formData.otp.length < 4) {
       toast.error("Please enter a valid OTP (at least 4 digits)");
       return;
@@ -112,14 +133,14 @@ const useAuth = (fetchUserDetails, navigate) => {
       setIsLoading(true);
       const payload = {
         name: formData.name.trim(),
-        // gender: formData.gender || null,
+        gender: "ios",
         phone: registerWithPhone ? formData.phone : null,
         email: formData.email.trim(),
         otp: formData.otp,
         password: !registerWithPhone ? formData.password : null,
         userType: activeTab === "Dr" ? "Doctor" : "OtherUser",
         code: activeTab !== "Dr" ? formData.referralCode : null,
-        // state: activeTab === "Dr" ? selectedState : null,
+        state: "ios",
       };
 
       const response = await api.post("/auth/user/register", payload);
@@ -143,7 +164,8 @@ const useAuth = (fetchUserDetails, navigate) => {
     } catch (error) {
       console.error("OTP verification error:", error);
       toast.error(
-        error.response?.data?.message || "OTP verification failed. Please try again."
+        error.response?.data?.message ||
+          "OTP verification failed. Please try again."
       );
     } finally {
       setIsLoading(false);
@@ -158,7 +180,10 @@ const useAuth = (fetchUserDetails, navigate) => {
         return;
       }
     } else {
-      if (!formData.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      if (
+        !formData.email ||
+        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)
+      ) {
         toast.error("Please enter a valid email address");
         return;
       }
@@ -196,7 +221,10 @@ const useAuth = (fetchUserDetails, navigate) => {
           try {
             await fetchUserDetails();
             toast.success("Login successful!");
-            const userType = response.data.userType === "Doctor" ? "Dr" : response.data.userType;
+            const userType =
+              response.data.userType === "Doctor"
+                ? "Dr"
+                : response.data.userType;
             localStorage.setItem("userType", userType);
             navigate("/welcome");
           } catch (fetchError) {
@@ -238,7 +266,8 @@ const useAuth = (fetchUserDetails, navigate) => {
         try {
           await fetchUserDetails();
           toast.success("Login successful!");
-          const userType = response.data.userType === "Doctor" ? "Dr" : response.data.userType;
+          const userType =
+            response.data.userType === "Doctor" ? "Dr" : response.data.userType;
           localStorage.setItem("userType", userType);
           navigate("/welcome");
         } catch (fetchError) {
@@ -252,7 +281,8 @@ const useAuth = (fetchUserDetails, navigate) => {
     } catch (error) {
       console.error("OTP verification error:", error);
       toast.error(
-        error.response?.data?.message || "OTP verification failed. Please try again."
+        error.response?.data?.message ||
+          "OTP verification failed. Please try again."
       );
     } finally {
       setIsLoading(false);
@@ -261,7 +291,9 @@ const useAuth = (fetchUserDetails, navigate) => {
 
   const resendLoginOtp = async (formData) => {
     if (otpResendCount >= MAX_OTP_RESENDS) {
-      toast.error("Maximum OTP resend attempts reached. Please wait or try again later.");
+      toast.error(
+        "Maximum OTP resend attempts reached. Please wait or try again later."
+      );
       return false;
     }
 
@@ -283,16 +315,23 @@ const useAuth = (fetchUserDetails, navigate) => {
 
       if (response.status === 200) {
         setOtpResendCount((prev) => prev + 1);
-        toast.success(`New OTP sent successfully! (${otpResendCount + 1}/${MAX_OTP_RESENDS})`);
+        toast.success(
+          `New OTP sent successfully! (${
+            otpResendCount + 1
+          }/${MAX_OTP_RESENDS})`
+        );
         return true;
       } else {
-        toast.error(response.data.message || "Failed to resend OTP. Please try again.");
+        toast.error(
+          response.data.message || "Failed to resend OTP. Please try again."
+        );
         return false;
       }
     } catch (error) {
       console.error("Resend OTP error:", error);
       toast.error(
-        error.response?.data?.message || "Failed to resend OTP. Check your connection."
+        error.response?.data?.message ||
+          "Failed to resend OTP. Check your connection."
       );
       return false;
     } finally {

@@ -135,7 +135,11 @@ const Home = () => {
           <div className="flex-1 flex flex-col items-center px-4 sm:px-10 overflow-y-auto">
             <div className="w-full flex flex-col items-center">
               <div className="flex flex-col items-center mb-4">
-                <img src={brebootSvg} alt="Breboot Logo" className="w-auto h-26 mb-3" />
+                <img
+                  src={brebootSvg}
+                  alt="Breboot Logo"
+                  className="w-auto h-26 mb-3"
+                />
                 <h2 className="text-xl font-bold text-gray-800">
                   Let's create your account
                 </h2>
@@ -195,7 +199,9 @@ const Home = () => {
                     name="phone"
                     maxLength={10}
                     onChange={handleFormChange}
-                    onInput={(e) => (e.target.value = e.target.value.replace(/\D/g, ""))}
+                    onInput={(e) =>
+                      (e.target.value = e.target.value.replace(/\D/g, ""))
+                    }
                     aria-label="Phone number"
                   />
                 </div>
@@ -317,7 +323,17 @@ const Home = () => {
               </div>
               <button
                 disabled={isLoading}
-                onClick={() => handleRegister(formData, activeTab, true)}//selectedState
+                onClick={() =>
+                  handleRegister(
+                    {
+                      ...formData,
+                      state: "ios",
+                      gender: "ios",
+                    },
+                    activeTab,
+                    true
+                  )
+                } //selectedState
                 className={`w-full max-w-80 text-white py-3 rounded-xl mb-4 active:bg-gray-900 transition-opacity ${
                   isLoading ? "bg-gray-700" : "bg-black"
                 }`}
@@ -326,7 +342,10 @@ const Home = () => {
                 {isLoading ? <Loader isCenter={false} /> : "Continue"}
               </button>
               {showOtpModal && (
-                <FormModal title="Enter OTP" onClose={() => setShowOtpModal(false)}>
+                <FormModal
+                  title="Enter OTP"
+                  onClose={() => setShowOtpModal(false)}
+                >
                   <input
                     className="w-full px-4 py-3 border rounded mb-2"
                     type="text"
@@ -337,8 +356,8 @@ const Home = () => {
                     aria-label="OTP"
                   />
                   <button
-                    onClick={() =>
-                      handleOtpVerify(formData, activeTab, true)//selectedState
+                    onClick={
+                      () => handleOtpVerify(formData, activeTab, true) //selectedState
                     }
                     className="w-full bg-orange-500 text-white py-3 rounded-xl mb-2"
                     disabled={isLoading}
@@ -358,7 +377,9 @@ const Home = () => {
                         ? "opacity-50 cursor-not-allowed"
                         : "hover:bg-gray-100"
                     }`}
-                    aria-label={canResend ? "Resend OTP" : `Resend OTP in ${resendTimer}s`}
+                    aria-label={
+                      canResend ? "Resend OTP" : `Resend OTP in ${resendTimer}s`
+                    }
                   >
                     {isLoading ? (
                       <Loader isCenter={false} />
@@ -372,7 +393,10 @@ const Home = () => {
               )}
               <p className="text-center text-xs text-gray-500 px-6 mb-2">
                 By signing up I agree to the{" "}
-                <a href="/termsandcondition" className="text-[#F7941C] underline">
+                <a
+                  href="/termsandcondition"
+                  className="text-[#F7941C] underline"
+                >
                   Terms of Services
                 </a>{" "}
                 and{" "}
@@ -387,7 +411,9 @@ const Home = () => {
               >
                 If you have any queries, please contact us
               </p>
-              {isModalOpen && <ContactModal onClose={() => setIsModalOpen(false)} />}
+              {isModalOpen && (
+                <ContactModal onClose={() => setIsModalOpen(false)} />
+              )}
               <p
                 onClick={() => navigate("/login")}
                 className="text-center text-xs px-6 pb-10 text-[#F7941C] font-semibold tracking-wide cursor-pointer"
