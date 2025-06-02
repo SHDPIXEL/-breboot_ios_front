@@ -85,7 +85,7 @@ function App() {
                 <Route path="/redeem" element={<RedeemPage />} />
                 <Route path="/welcome" element={<Welcome />} />
                 <Route path="/challenges/week/:weekId/:challengeId" element={<ChallengeDetails />} />
-                <Route path="/dietconsultation" element={<DietConsultation />} />
+{/*                 <Route path="/dietconsultation" element={<DietConsultation />} /> */}
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/product/:id" element={<ProductPage />} />
                 <Route path="/reward/:id" element={<RewardPage />} />
