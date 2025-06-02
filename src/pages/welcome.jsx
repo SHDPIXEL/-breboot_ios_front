@@ -177,7 +177,7 @@ const Welcome = () => {
                 </Link>
 
                 {/* Action 3 - Free Diet Consultation */}
-                <Link to={"/dietconsultation"}>
+{/*                 <Link to={"/dietconsultation"}>
                     <div className="flex flex-col items-center">
                         <div className="w-20 h-20 flex items-center justify-center bg-[#F7941C] text-white rounded-full">
                             <User className="w-10 h-10" />
@@ -185,7 +185,7 @@ const Welcome = () => {
                         <p className="mt-2 text-base text-balck">Celebrity Diet</p>
                         <p className="text-base text-black">Consultation</p>
                     </div>
-                </Link>
+                </Link> */}
             </div>
 
             {/* Consent Modal */}
